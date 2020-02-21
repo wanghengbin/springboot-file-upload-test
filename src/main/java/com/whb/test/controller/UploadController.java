@@ -23,14 +23,14 @@ import java.nio.charset.StandardCharsets;
  *
  **/
 @RestController
-@Api(tags = "OssStreamConvertController", description = "文件上传控制器")
-@RequestMapping("/api/v1/resource/file/")
+@Api(tags = "UploadController", description = "文件上传控制器")
+@RequestMapping("/upload/")
 //@Slf4j
 public class UploadController {
     private static final Logger log = LoggerFactory.getLogger(UploadController.class);
 
 
-    private static String localCachePath = "";
+    private static String localCachePath = "/Users/wanghb/Desktop/";
 
     /**
      * 对象存储中转请求链接-根据文件名字请求对象存储的文件流
