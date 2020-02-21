@@ -1,33 +1,17 @@
-package com.whb.test;
+package com.whb.test.controller;
 
-import com.unnet.yjs.annotation.HttpMethod;
-import com.unnet.yjs.base.ContainerProperties;
-import com.unnet.yjs.entity.OssFileRecord;
-import com.unnet.yjs.service.OssFileRecordService;
-import com.unnet.yjs.util.IOssOperation;
-import com.xiaoleilu.hutool.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 /**
  * Email: love1208tt@foxmail.com
@@ -40,20 +24,9 @@ import java.util.Objects;
 @Api(tags = "OssStreamConvertController", description = "文件上传控制器")
 @RequestMapping("/api/v1/resource/file/")
 @Slf4j
-public class OssStreamConvertController {
-    @Resource
-    private ContainerProperties containerProperties;
-/*
-    @Autowired
-    @Qualifier("paasOssTool")
-    private IOssOperation paasOssTool;
-    @Autowired
-    @Qualifier("minIoOssTool")
-    private IOssOperation minIoOssTool;
+public class UploadController {
 
-    @Resource
-    private OssFileRecordService ossFileRecordService;*/
-
+    private static String localCachePath = "";
 
     /**
      * 对象存储中转请求链接-根据文件名字请求对象存储的文件流
@@ -61,21 +34,14 @@ public class OssStreamConvertController {
      * @param fileName 文件名称
      */
     @GetMapping("video/{fileName}")
-    @ApiOperation(value = "对象存储文件流中转接口", httpMethod = HttpMethod.GET)
+    @ApiOperation(value = "对象存储文件流中转接口", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fileName", value = "文件名称", paramType = "path")
     })
     public void videoPlayer(@PathVariable(value = "fileName") String fileName, HttpServletRequest request,HttpServletResponse response) throws IOException {
-/*        if(paasOssTool == null || minIoOssTool == null){
-            OutputStream out = response.getOutputStream();
-            out.write(("OSS文件服务器配置出现问题,请修复后重试.").getBytes());
-            out.flush();
-            out.close();
-            return;
-        }*/
 
         ///是否开启本地缓存视频mp4文件
-        String filePath = containerProperties.getFileCacheLocation() + fileName;
+        String filePath = localCachePath + fileName;
         File file = new File(filePath);
         File parentDir = file.getParentFile();
         if (!parentDir.exists()) {
@@ -85,62 +51,12 @@ public class OssStreamConvertController {
             }else {
                 log.error("创建文件夹{}失败.",parentDir.getAbsolutePath());
             }
-        }//end if
-/*        if (!file.exists()) {
-            ///本地文件不存在,从OSS下载到本地
-            boolean isMakeNewFile = file.createNewFile();
-            if(isMakeNewFile){
-                log.info("创建文件{}成功.",file.getAbsolutePath());
-            }else {
-                log.error("创建文件{}失败.",file.getAbsolutePath());
-            }
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            InputStream is = null;
-            try {
-                if (StrUtil.equalsIgnoreCase(containerProperties.getFileUploadType(), "myOss")) {
-                    is = minIoOssTool.load(fileName);
-                }
-                if (StrUtil.equalsIgnoreCase(containerProperties.getFileUploadType(), "paas")) {
-                    is = paasOssTool.load(fileName);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                e.printStackTrace();
-                log.error("对象存储加载文件失败,msg:"+e.getLocalizedMessage());
-                OutputStream out = response.getOutputStream();
-                out.write(("对象存储加载文件失败,msg:"+e.getLocalizedMessage()).getBytes());
-                out.flush();
-                out.close();
-                return;
-            }
-            ////判断流不为空
-            Objects.requireNonNull(is);
+        }
+        //如果视频文件不存在，则此处需要下载视频文件到本地
 
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            byte[] buffer = new byte[4096];
-            int length;
-            while ((length = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, length);
-            }
-            bos.flush();
-            bos.close();
-        }*////end if
         log.info("文件：{}，总长度：{}",file.getName(),file.length());
         ///对文件执行分块
         fileChunkDownload(filePath,request,response);
-/*        /////添加文件访问记录
-        OssFileRecord ossFileRecord = ossFileRecordService.findByFileName(fileName);
-        if (Objects.nonNull(ossFileRecord)) {
-            ossFileRecord.setFileLength(String.valueOf(file.length()));
-            ossFileRecord.setVisitCount(ossFileRecord.getVisitCount() + 1);
-        }else{
-            ossFileRecord = new OssFileRecord();
-            ossFileRecord.setFileName(fileName);
-            ossFileRecord.setFileLength(String.valueOf(file.length()));
-            ossFileRecord.setVisitCount(1);
-            ossFileRecord.setRemarks("OssFileRecord");
-        }
-        ossFileRecordService.insertOrUpdate(ossFileRecord);*/
     }
 
     /**
