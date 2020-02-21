@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] [%thread] %logger{36} [%M %L] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="risk" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_DIR}/risk.rule.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] [%thread] %logger{36} [%M %L] - %msg%n</pattern>
+        </layout>
+    </appender>
+
+
+    <logger name="com.huli.risk.rule.rule.impl.moxie" level="warn" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="com.huli.risk.rule.rule.impl.jxl.JxlUtil" level="warn" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+
+    <logger name="com.huli.risk" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="com.souyidai.risk.data.mongo" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="com.souyidai.risk" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="jade_sql.log" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="com" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="org" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="net" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="com.huli.rpc.diamond" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+    <logger name="org.apache.dubbo" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+    <logger name="org.apache.zookeeper" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+    <logger name="org.mongodb" level="info" additivity="">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="risk"/>
+    </logger>
+
+
+</configuration>

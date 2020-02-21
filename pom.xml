@@ -258,6 +258,16 @@
     </distributionManagement>
 
     <build>
+<!--        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.xml</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>-->
         <plugins>
             <!-- 指定jdk -->
             <plugin>

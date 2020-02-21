@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +25,10 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @Api(tags = "OssStreamConvertController", description = "文件上传控制器")
 @RequestMapping("/api/v1/resource/file/")
-@Slf4j
+//@Slf4j
 public class UploadController {
+    private static final Logger log = LoggerFactory.getLogger(UploadController.class);
+
 
     private static String localCachePath = "";
 
