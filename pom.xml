@@ -78,7 +78,7 @@
         <spring-oauth.version>2.3.6.RELEASE</spring-oauth.version>
         <spring-jwt.version>1.0.10.RELEASE</spring-jwt.version>
         <!-- 暂时用2.7.3版本的，用2.7.5的话启动报错连不上zk -->
-        <dubbo.version>2.7.3</dubbo.version>
+        <dubbo.version>2.7.13</dubbo.version>
         <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
