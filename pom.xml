@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.38</version>
+            <version>1.2.83</version>
         </dependency>
 
         <dependency>
@@ -65,7 +65,7 @@
         <maven.clean.version>3.1.0</maven.clean.version>
         <slf4j.version>1.7.28</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <fastjson.version>1.2.38</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <lombok.version>1.16.12</lombok.version>
         <guava.version>28.1-jre</guava.version>
         <joda.version>2.10.4</joda.version>
