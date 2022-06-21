@@ -70,7 +70,7 @@
         <guava.version>28.1-jre</guava.version>
         <joda.version>2.10.4</joda.version>
         <junit5.version>5.4.2</junit5.version>
-        <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
         <commons-dbcp2.version>2.7.1-SNAPSHOT</commons-dbcp2.version>
         <apollo.version>1.0-SNAPSHOT</apollo.version>
         <paoding-rose-jade.version>2.0.3-SNAPSHOT</paoding-rose-jade.version>
