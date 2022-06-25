@@ -74,7 +74,7 @@
         <commons-dbcp2.version>2.7.1-SNAPSHOT</commons-dbcp2.version>
         <apollo.version>1.0-SNAPSHOT</apollo.version>
         <paoding-rose-jade.version>2.0.3-SNAPSHOT</paoding-rose-jade.version>
-        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
         <spring-oauth.version>2.3.6.RELEASE</spring-oauth.version>
         <spring-jwt.version>1.0.10.RELEASE</spring-jwt.version>
         <!-- 暂时用2.7.3版本的，用2.7.5的话启动报错连不上zk -->
